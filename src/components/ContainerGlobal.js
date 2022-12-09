@@ -11,5 +11,4 @@ export default function ContainerGlobal(){
 
 const StyledContainerGlobal = styled.div`
 height: 100vh;
-background-color: #E5E5E5;
 `

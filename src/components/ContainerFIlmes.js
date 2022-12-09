@@ -10,7 +10,15 @@ export default function ContainerFilmes(){
         promise.then(resposta => {
             setListaFilmes(resposta.data);
         })
+
+        promise.catch(error => {
+            console.log(error.response.status);
+        })
     }, []);
+
+    if(listaFilmes.length === 0){
+        return <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831" />
+    }
 
     return(
         <StyledContainerFilmes>
@@ -25,13 +33,9 @@ export default function ContainerFilmes(){
 const StyledContainerFilmes = styled.div`
 width: 100%;
 display: flex;
-flex-direction: column;
 flex-wrap: wrap;
 justify-content: center;
 align-items: center;
-position: fixed;
-bottom: 0;
-right: 0;
 overflow-y: hidden;
 `
 

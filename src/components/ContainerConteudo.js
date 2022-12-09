@@ -19,7 +19,6 @@ width: 375px;
 display: flex;
 flex-direction: column;
 background-color: white;
-position: relative;
 `
 
 const StyledDivH2 = styled.div`
