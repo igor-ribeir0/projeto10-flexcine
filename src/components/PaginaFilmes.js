@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import ContainerConteudo from "./ContainerConteudo";
+import ContainerConteudoFilmes from "./ContainerConteudoFilmes";
 
 export default function ContainerMain(){
     return(
-        <StyledMain>
-            <ContainerConteudo />
-        </StyledMain>
+        <StyledPaginaFilmes>
+            <ContainerConteudoFilmes />
+        </StyledPaginaFilmes>
     );
 }
 
-const StyledMain = styled.main`
+const StyledPaginaFilmes = styled.main`
 width: 100%;
 display: flex;
 justify-content: center;

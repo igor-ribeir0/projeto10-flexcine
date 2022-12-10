@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function ContainerFilmes(){
@@ -23,9 +24,11 @@ export default function ContainerFilmes(){
     return(
         <StyledContainerFilmes>
             {listaFilmes.map((filme) => 
-            <StyledFilme key={filme.id}>
-                <img src={filme.posterURL}/>
-            </StyledFilme>)}
+            <Link to={`/sessoes/${filme.id}`} key={filme.id}>
+                <StyledFilme>
+                    <img src={filme.posterURL}/>
+                </StyledFilme>
+            </Link>)}
         </StyledContainerFilmes>
     );
 }

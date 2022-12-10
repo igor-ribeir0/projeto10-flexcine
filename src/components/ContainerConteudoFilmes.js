@@ -2,19 +2,19 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import ContainerFilmes from "./ContainerFIlmes";
 
-export default function ContainerConteudo(){
+export default function ContainerConteudoFilmes(){
     return(
-        <StyledContainerConteudo>
+        <StyledContainerConteudoFilmes>
             <Logo />
             <StyledDivH2>
                 <h2>Selecione o filme</h2>
             </StyledDivH2>
             <ContainerFilmes />
-        </StyledContainerConteudo>
+        </StyledContainerConteudoFilmes>
     );
 }
 
-const StyledContainerConteudo = styled.div`
+const StyledContainerConteudoFilmes = styled.div`
 width: 375px;
 display: flex;
 flex-direction: column;
