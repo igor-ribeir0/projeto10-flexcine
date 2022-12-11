@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Logo from "./Logo";
-import {useParams} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import {useState, useEffect} from "react";
 import axios from "axios";
 
@@ -40,7 +40,11 @@ export default function PaginaSessoes(){
                     <StyledSessao key={sessao.id}>
                         <h3>{sessao.weekday}- {sessao.date}</h3>
                         {sessao.showtimes.map((tempo) => 
-                        <StyledButton key={tempo.id}><span>{tempo.name}</span></StyledButton>)}
+                        <Link to={`/assentos/${tempo.id}`} key={tempo.id}>
+                            <StyledButton>
+                                <span>{tempo.name}</span>
+                            </StyledButton>
+                        </Link>)}
                     </StyledSessao>)}
                 </StyledContainerSessoes>
 
