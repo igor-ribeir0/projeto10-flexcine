@@ -3,11 +3,16 @@ import Logo from "./Logo";
 import {useParams} from "react-router-dom";
 import {useState, useEffect} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"
 
 export default function PaginaAssentos(){
     const {idSessao} = useParams();
     const [listaAssentos, setListaAssentos] = useState([]);
     const [selecionados, setSelecionados] = useState([]);
+    const [nome, setNome] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [validacao, setValidacao] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`);
@@ -38,6 +43,22 @@ export default function PaginaAssentos(){
         else{
             setSelecionados([...selecionados, assento]);
         }
+    }
+
+    function fazerReserva(event){
+        event.preventDefault();
+        const promise = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",{
+            ids: [...selecionados],
+            nome: nome,
+            cpf: cpf
+        });
+        promise.then(() => navigate("/sucesso"));
+        setValidacao(true);
+    }
+
+    if(validacao){
+        setNome("");
+        setCpf("");
     }
 
     return(
@@ -83,26 +104,24 @@ export default function PaginaAssentos(){
                 </StyledContainerAssentos>
 
                 <StyledContainerCadastro>
-                    <StyledDadosComprador>
-                        <p>Nome do comprador:</p>
-                        <form>
-                            <input type="text" placeholder="Digite seu nome..." required/>
-                        </form>
-                    </StyledDadosComprador>
+                    <form onSubmit={fazerReserva}>
+                        <StyledDadosComprador>
+                            <p>Nome do comprador:</p>
+                            <input type="text" value={nome} onChange={e => setNome(e.target.value)} placeholder="Digite seu nome..." required/>
+                        </StyledDadosComprador>
 
-                    <StyledDadosComprador>
-                        <p>CPF do comprador:</p>
-                        <form>
-                            <input type="text" placeholder="Digite seu CPF..." required/>
-                        </form>
-                    </StyledDadosComprador>
+                        <StyledDadosComprador>
+                            <p>CPF do comprador:</p>
+                            <input type="text" value={cpf} onChange={e => setCpf(e.target.value)} placeholder="Digite seu CPF..." required/>
+
+                            <StyledContainerReservar>
+                                <StyledReservarButton type="submit">
+                                    <span>Reservar assento(s)</span>
+                                </StyledReservarButton>
+                            </StyledContainerReservar>
+                        </StyledDadosComprador>
+                    </form>
                 </StyledContainerCadastro>
-
-                <StyledContainerReservar>
-                    <StyledReservarButton>
-                        <span>Reservar assento(s)</span>
-                    </StyledReservarButton>
-                </StyledContainerReservar>
 
             </StyledContainerConteudoAssentos>
 
@@ -232,7 +251,6 @@ const StyledDadosComprador = styled.div`
 width: 100%;
 display: flex;
 flex-direction: column;
-margin-left: 20px;
 margin-top: 10px;
     p{
         width: 327px;
