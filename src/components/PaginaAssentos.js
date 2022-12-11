@@ -7,6 +7,7 @@ import axios from "axios";
 export default function PaginaAssentos(){
     const {idSessao} = useParams();
     const [listaAssentos, setListaAssentos] = useState([]);
+    const [selecionados, setSelecionados] = useState([]);
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`);
@@ -23,6 +24,22 @@ export default function PaginaAssentos(){
         return <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831" />
     }
 
+    function SelecionarAssento(assento, restricao){
+        const estaNaLista = selecionados.includes(assento);
+        if(restricao === false){
+            alert("Esse assento não está disponível");
+        }
+        else if(estaNaLista){
+            const index = selecionados.indexOf(assento);
+            const novoArray = [...selecionados];
+            novoArray.splice(index, 1);
+            setSelecionados(novoArray);
+        }
+        else{
+            setSelecionados([...selecionados, assento]);
+        }
+    }
+
     return(
         <StyledPaginaAssentos>
 
@@ -36,7 +53,10 @@ export default function PaginaAssentos(){
                     <StyledAssentos>
                         {listaAssentos.seats.map((assento) =>
                         <StyledAssentosButton 
-                            key={assento.id} isAvailable={assento.isAvailable}
+                            key={assento.id} 
+                            isAvailable={assento.isAvailable}
+                            onClick={() => SelecionarAssento(assento.id, assento.isAvailable)}
+                            verificar={selecionados.includes(assento.id)}
                         >
                             {assento.name < 10? `0${assento.name}` : assento.name}
                         </StyledAssentosButton>)}
@@ -139,8 +159,8 @@ width: 26px;
 height: 26px;
 border-radius: 12px;
 border: 1px solid #808F9D;
-background-color: ${props => props.isAvailable? "#C3CFD9" : "#FBE192"};
-border: 1px solid ${props => props.isAvailable? "#7B8B99" : "#F7C52B"};
+background-color: ${props => props.verificar? "#1AAE9E" : props.isAvailable? "#C3CFD9" : "#FBE192"};
+border: 1px solid ${props => props.verificar? "#0E7D71" : props.isAvailable? "#7B8B99" : "#F7C52B"};
 margin: 5px;
 &:hover{
     cursor: pointer;
