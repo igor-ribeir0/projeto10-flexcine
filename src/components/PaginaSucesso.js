@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import Logo from "./Logo";
+import {useNavigate} from "react-router-dom";
 
 export default function PaginaSucesso(props){
-    const {nomeFilme} = props;
+    const {nomeFilme, dataFilme, tempoFilme, assentosLista, guardarCpf, guardarNome} = props;
+    const navigate = useNavigate();
+
+    function voltarHome(){
+        navigate("/");
+    }
 
     return(
         <StyledPaginaSucesso>
@@ -15,23 +21,29 @@ export default function PaginaSucesso(props){
                 <StyledContainerDados>
                     <StyledDado>
                         <h3>Filme e sessão</h3>
-                        <p>{nomeFilme}</p>
-                        <p></p>
+                        <StyledDivTitulo><p>{nomeFilme}</p></StyledDivTitulo>
+                        <StyledDivParagrafos>
+                            <p>{dataFilme}</p>
+                            <p>{tempoFilme}</p>
+                        </StyledDivParagrafos>
                     </StyledDado>
 
                     <StyledDado>
                         <h3>Ingressos</h3>
-                        <p>Assento 15</p>
-                        <p>Assento 16</p>
+                        {assentosLista.map((assento) =>
+                        <StyledParagrafo key={assento}>Assento {assento}</StyledParagrafo>)}
                     </StyledDado>
 
                     <StyledDado>
                         <h3>Comprador</h3>
-                        <p>Nome: João da Silva</p>
-                        <p>CPF: 123.456.789-10</p>
+                        <p>Nome: {guardarNome}</p>
+                        <p>CPF: {guardarCpf}</p>
                     </StyledDado>
                 </StyledContainerDados>
 
+                <StyledButton onClick={voltarHome}>
+                    <span>Voltar pra Home</span>
+                </StyledButton>
             </StyledContainerConteudoSucesso>
         </StyledPaginaSucesso>
     );
@@ -92,8 +104,7 @@ margin-left: 50px;
         font-weight: 700;
         font-size: 24px;
         line-height: 28px;
-        color: #293845;
-        margin-top: -30px;
+        margin-top: -40px;
     }
     p{
         width: 374px;
@@ -103,5 +114,65 @@ margin-left: 50px;
         line-height: 26px;
         color: #293845;
         margin-top: -65px;
+    }
+`
+
+const StyledDivTitulo = styled.div`
+width: 100%;
+display: flex;
+align-items: center;
+    p{
+        width: 374px;
+        height: 110px;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 26px;
+        color: #293845;
+        margin-top: -65px;
+    }
+`
+
+const StyledDivParagrafos = styled.div`
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+    p{
+        width: 374px;
+        height: 110px;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 26px;
+        color: #293845;
+        margin-top: -65px;
+    }
+`
+
+const StyledParagrafo = styled.p`
+width: 374px;
+height: 110px;
+font-weight: 400;
+font-size: 22px;
+line-height: 26px;
+color: #293845;
+margin-top: -65px;
+`
+
+const StyledButton = styled.button`
+width: 225px;
+height: 42px;
+border-radius: 3px;
+background-color: #E8833A;
+margin-bottom: 300px;
+&:hover{
+    cursor: pointer;
+}
+    span{
+        width: 225px;
+        height: 42px;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        color: #FFFFFF
     }
 `

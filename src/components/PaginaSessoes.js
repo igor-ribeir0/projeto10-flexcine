@@ -4,9 +4,10 @@ import {useParams, Link} from "react-router-dom";
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-export default function PaginaSessoes(){
+export default function PaginaSessoes(props){
     const [listaSessoes, setListaSessoes] = useState([]);
     const {idFilme} = useParams();
+    const {setTempoFilme, setDataFilme} = props;
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`);
@@ -21,6 +22,11 @@ export default function PaginaSessoes(){
 
     if(listaSessoes.length === 0){
         return <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831" />
+    }
+
+    function guardarData(tempo, data){
+        setTempoFilme(tempo);
+        setDataFilme(data);
     }
 
     return(
@@ -41,7 +47,7 @@ export default function PaginaSessoes(){
                         {sessao.showtimes.map((tempo) => 
                         <Link to={`/assentos/${tempo.id}`} key={tempo.id}>
                             <StyledButton>
-                                <span>{tempo.name}</span>
+                                <span onClick={() => guardarData(tempo.name, sessao.date)}>{tempo.name}</span>
                             </StyledButton>
                         </Link>)}
                     </StyledSessao>)}

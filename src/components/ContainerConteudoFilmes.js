@@ -4,6 +4,7 @@ import ContainerFilmes from "./ContainerFIlmes";
 
 export default function ContainerConteudoFilmes(props){
     const {setNomeFilme} = props;
+
     return(
         <StyledContainerConteudoFilmes>
             <Logo />

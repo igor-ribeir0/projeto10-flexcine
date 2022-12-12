@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import Logo from "./Logo";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate } from "react-router-dom";
 import {useState, useEffect} from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"
 
-export default function PaginaAssentos(){
+export default function PaginaAssentos(props){
     const {idSessao} = useParams();
+    const {setAssentosLista, setGuardarCpf, setGuardarNome} = props;
     const [listaAssentos, setListaAssentos] = useState([]);
     const [selecionados, setSelecionados] = useState([]);
     const [nome, setNome] = useState("");
     const [cpf, setCpf] = useState("");
-    const [validacao, setValidacao] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -47,18 +46,15 @@ export default function PaginaAssentos(){
 
     function fazerReserva(event){
         event.preventDefault();
+        setGuardarNome(nome);
+        setGuardarCpf(cpf);
+        setAssentosLista(selecionados);
         const promise = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",{
-            ids: [...selecionados],
+            ids: selecionados,
             nome: nome,
             cpf: cpf
         });
         promise.then(() => navigate("/sucesso"));
-        setValidacao(true);
-    }
-
-    if(validacao){
-        setNome("");
-        setCpf("");
     }
 
     return(
@@ -76,8 +72,8 @@ export default function PaginaAssentos(){
                         <StyledAssentosButton 
                             key={assento.id} 
                             isAvailable={assento.isAvailable}
-                            onClick={() => SelecionarAssento(assento.id, assento.isAvailable)}
-                            verificar={selecionados.includes(assento.id)}
+                            onClick={() => SelecionarAssento(assento.name, assento.isAvailable)}
+                            verificar={selecionados.includes(assento.name)}
                         >
                             {assento.name < 10? `0${assento.name}` : assento.name}
                         </StyledAssentosButton>)}
