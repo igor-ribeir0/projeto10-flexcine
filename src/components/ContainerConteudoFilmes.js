@@ -2,14 +2,15 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import ContainerFilmes from "./ContainerFIlmes";
 
-export default function ContainerConteudoFilmes(){
+export default function ContainerConteudoFilmes(props){
+    const {setNomeFilme} = props;
     return(
         <StyledContainerConteudoFilmes>
             <Logo />
             <StyledDivH2>
                 <h2>Selecione o filme</h2>
             </StyledDivH2>
-            <ContainerFilmes />
+            <ContainerFilmes setNomeFilme={setNomeFilme}/>
         </StyledContainerConteudoFilmes>
     );
 }

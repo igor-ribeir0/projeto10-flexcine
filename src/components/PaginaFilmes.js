@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import ContainerConteudoFilmes from "./ContainerConteudoFilmes";
 
-export default function ContainerMain(){
+export default function ContainerMain(props){
+    const {setNomeFilme} = props;
     return(
         <StyledPaginaFilmes>
-            <ContainerConteudoFilmes />
+            <ContainerConteudoFilmes setNomeFilme={setNomeFilme}/>
         </StyledPaginaFilmes>
     );
 }

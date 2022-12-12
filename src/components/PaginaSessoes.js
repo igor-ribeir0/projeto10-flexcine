@@ -4,7 +4,6 @@ import {useParams, Link} from "react-router-dom";
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-
 export default function PaginaSessoes(){
     const [listaSessoes, setListaSessoes] = useState([]);
     const {idFilme} = useParams();

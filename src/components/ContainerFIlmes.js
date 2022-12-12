@@ -3,8 +3,9 @@ import {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function ContainerFilmes(){
+export default function ContainerFilmes(props){
     const [listaFilmes, setListaFilmes] = useState([]);
+    const {setNomeFilme} = props;
 
     useEffect(() => {
         const promise = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies");
@@ -21,12 +22,16 @@ export default function ContainerFilmes(){
         return <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831" />
     }
 
+    function guardarFilme(nomeFilme){
+        setNomeFilme(nomeFilme);
+    }
+
     return(
         <StyledContainerFilmes>
             {listaFilmes.map((filme) => 
             <Link to={`/sessoes/${filme.id}`} key={filme.id}>
                 <StyledFilme>
-                    <img src={filme.posterURL}/>
+                    <img src={filme.posterURL} onClick={() => guardarFilme(filme.title)}/>
                 </StyledFilme>
             </Link>)}
         </StyledContainerFilmes>
