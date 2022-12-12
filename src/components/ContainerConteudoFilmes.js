@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import ContainerFilmes from "./ContainerFIlmes";
 
 export default function ContainerConteudoFilmes(props){
-    const {setNomeFilme} = props;
+    const {setNomeFilme, setGuardarRodapeImagem} = props;
 
     return(
         <StyledContainerConteudoFilmes>
@@ -11,7 +11,10 @@ export default function ContainerConteudoFilmes(props){
             <StyledDivH2>
                 <h2>Selecione o filme</h2>
             </StyledDivH2>
-            <ContainerFilmes setNomeFilme={setNomeFilme}/>
+            <ContainerFilmes 
+                setNomeFilme={setNomeFilme}
+                setGuardarRodapeImagem={setGuardarRodapeImagem}
+            />
         </StyledContainerConteudoFilmes>
     );
 }

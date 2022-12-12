@@ -5,7 +5,7 @@ import axios from "axios";
 
 export default function ContainerFilmes(props){
     const [listaFilmes, setListaFilmes] = useState([]);
-    const {setNomeFilme} = props;
+    const {setNomeFilme, setGuardarRodapeImagem} = props;
 
     useEffect(() => {
         const promise = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies");
@@ -22,8 +22,9 @@ export default function ContainerFilmes(props){
         return <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831" />
     }
 
-    function guardarFilme(nomeFilme){
+    function guardarFilme(nomeFilme, imagemFilme){
         setNomeFilme(nomeFilme);
+        setGuardarRodapeImagem(imagemFilme);
     }
 
     return(
@@ -31,7 +32,7 @@ export default function ContainerFilmes(props){
             {listaFilmes.map((filme) => 
             <Link to={`/sessoes/${filme.id}`} key={filme.id}>
                 <StyledFilme>
-                    <img src={filme.posterURL} onClick={() => guardarFilme(filme.title)}/>
+                    <img src={filme.posterURL} onClick={() => guardarFilme(filme.title, filme.posterURL)}/>
                 </StyledFilme>
             </Link>)}
         </StyledContainerFilmes>

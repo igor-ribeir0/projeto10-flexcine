@@ -7,7 +7,7 @@ import axios from "axios";
 export default function PaginaSessoes(props){
     const [listaSessoes, setListaSessoes] = useState([]);
     const {idFilme} = useParams();
-    const {setTempoFilme, setDataFilme} = props;
+    const {setTempoFilme, setDataFilme, guardarRodapeImagem, nomeFilme} = props;
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`);
@@ -55,6 +55,13 @@ export default function PaginaSessoes(props){
 
             </StyledContainerConteudoSessoes>
 
+            <StyledRodape>
+                <div>
+                    <img src={guardarRodapeImagem} />
+                </div>
+                <span>{nomeFilme}</span>
+            </StyledRodape>
+
         </StyledPaginaSessoes>
     );
 }
@@ -62,6 +69,7 @@ export default function PaginaSessoes(props){
 const StyledPaginaSessoes = styled.main`
 width: 100%;
 display: flex;
+flex-direction: column;
 justify-content: center;
 align-items: center;
 background-color: #E5E5E5;
@@ -127,4 +135,39 @@ margin-right: 8px;
         line-height: 21px;
         color: #FFFFFF;
     }
+`
+
+const StyledRodape = styled.div`
+width: 375px;
+height: 117px;
+display: flex;
+justify-content: start;
+align-items: center;
+background-color: #DFE6ED;
+border: 1px solid #9EADBA;
+    span{
+        width: 169px;
+        height: 40px;
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 30px;
+        color: #293845;
+    }
+
+    div{
+        width: 64px;
+        height: 89px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 2px;
+        background-color: white;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+        img{
+            width: 48px;
+            height: 72px;
+        }
 `

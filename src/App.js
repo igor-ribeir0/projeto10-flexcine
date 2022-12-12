@@ -12,16 +12,24 @@ export default function App(){
     const [assentosLista, setAssentosLista] = useState([]);
     const [guardarCpf, setGuardarCpf] = useState("");
     const [guardarNome, setGuardarNome] = useState("");
+    const [guardarRodapeImagem, setGuardarRodapeImagem] = useState("");
 
     return(
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<PaginaFilmes setNomeFilme={setNomeFilme}/>} />
+                <Route path="/" element={
+                    <PaginaFilmes 
+                        setNomeFilme={setNomeFilme}
+                        setGuardarRodapeImagem={setGuardarRodapeImagem}
+                    />} 
+                />
 
                 <Route path="/sessoes/:idFilme" element={
                     <PaginaSessoes 
                         setDataFilme={setDataFilme}
                         setTempoFilme={setTempoFilme}
+                        guardarRodapeImagem={guardarRodapeImagem}
+                        nomeFilme={nomeFilme}
                     />} 
                 />
 

@@ -2,10 +2,13 @@ import styled from "styled-components";
 import ContainerConteudoFilmes from "./ContainerConteudoFilmes";
 
 export default function ContainerMain(props){
-    const {setNomeFilme} = props;
+    const {setNomeFilme, setGuardarRodapeImagem} = props;
     return(
         <StyledPaginaFilmes>
-            <ContainerConteudoFilmes setNomeFilme={setNomeFilme}/>
+            <ContainerConteudoFilmes 
+                setNomeFilme={setNomeFilme} 
+                setGuardarRodapeImagem={setGuardarRodapeImagem}
+            />
         </StyledPaginaFilmes>
     );
 }
