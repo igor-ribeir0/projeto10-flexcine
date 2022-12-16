@@ -36,8 +36,14 @@ export default function App(){
                 <Route path="/assentos/:idSessao" element={
                     <PaginaAssentos 
                         setAssentosLista={setAssentosLista}
+                        assentosLista={assentosLista}
                         setGuardarCpf={setGuardarCpf}
                         setGuardarNome={setGuardarNome}
+                        nomeFilme={nomeFilme}
+                        guardarRodapeImagem={guardarRodapeImagem}
+                        dataFilme={dataFilme}
+                        tempoFilme={tempoFilme}
+
                     />} 
                 />
 
@@ -50,6 +56,12 @@ export default function App(){
                         assentosLista={assentosLista}
                         guardarCpf={guardarCpf}
                         guardarNome={guardarNome}
+                        setNomeFilme={setNomeFilme}
+                        setDataFilme={setDataFilme}
+                        setTempoFilme={setTempoFilme}
+                        setAssentosLista={setAssentosLista}
+                        setGuardarCpf={setGuardarCpf}
+                        setGuardarNome={setGuardarNome}
                     />} 
                 />
             </Routes>

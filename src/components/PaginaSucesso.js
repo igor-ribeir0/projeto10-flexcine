@@ -4,9 +4,16 @@ import {useNavigate} from "react-router-dom";
 
 export default function PaginaSucesso(props){
     const {nomeFilme, dataFilme, tempoFilme, assentosLista, guardarCpf, guardarNome} = props;
+    const {setNomeFilme, setDataFilme, setTempoFilme, setAssentosLista, setGuardarCpf, setGuardarNome} = props;
     const navigate = useNavigate();
 
     function voltarHome(){
+        setNomeFilme('');
+        setDataFilme('');
+        setTempoFilme('');
+        setAssentosLista([]);
+        setGuardarCpf('');
+        setGuardarNome('');
         navigate("/");
     }
 

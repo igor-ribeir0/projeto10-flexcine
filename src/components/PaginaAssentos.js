@@ -6,7 +6,7 @@ import axios from "axios";
 
 export default function PaginaAssentos(props){
     const {idSessao} = useParams();
-    const {setAssentosLista, setGuardarCpf, setGuardarNome} = props;
+    const {setAssentosLista, setGuardarCpf, setGuardarNome, guardarRodapeImagem, nomeFilme, dataFilme, tempoFilme, assentosLista} = props;
     const [listaAssentos, setListaAssentos] = useState([]);
     const [selecionados, setSelecionados] = useState([]);
     const [nome, setNome] = useState("");
@@ -28,7 +28,7 @@ export default function PaginaAssentos(props){
         return <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831" />
     }
 
-    function SelecionarAssento(assento, restricao){
+    function SelecionarAssento(assento, restricao, numeroAssento){
         const estaNaLista = selecionados.includes(assento);
         if(restricao === false){
             alert("Esse assento não está disponível");
@@ -41,6 +41,7 @@ export default function PaginaAssentos(props){
         }
         else{
             setSelecionados([...selecionados, assento]);
+            setAssentosLista([...assentosLista, numeroAssento])
         }
     }
 
@@ -48,7 +49,6 @@ export default function PaginaAssentos(props){
         event.preventDefault();
         setGuardarNome(nome);
         setGuardarCpf(cpf);
-        setAssentosLista(selecionados);
         const promise = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",{
             ids: selecionados,
             nome: nome,
@@ -72,8 +72,8 @@ export default function PaginaAssentos(props){
                         <StyledAssentosButton 
                             key={assento.id} 
                             isAvailable={assento.isAvailable}
-                            onClick={() => SelecionarAssento(assento.name, assento.isAvailable)}
-                            verificar={selecionados.includes(assento.name)}
+                            onClick={() => SelecionarAssento(assento.id, assento.isAvailable, assento.name)}
+                            verificar={selecionados.includes(assento.id)}
                         >
                             {assento.name < 10? `0${assento.name}` : assento.name}
                         </StyledAssentosButton>)}
@@ -121,6 +121,16 @@ export default function PaginaAssentos(props){
 
             </StyledContainerConteudoAssentos>
 
+            <StyledRodape>
+                <div>
+                    <img src={guardarRodapeImagem} />
+                </div>
+                <StyledRodapeDiv >
+                    <p>{nomeFilme}</p>
+                    <span>{dataFilme}- {tempoFilme}</span>
+                </StyledRodapeDiv>
+            </StyledRodape>
+
         </StyledPaginaAssentos>
     );
 }
@@ -128,6 +138,7 @@ export default function PaginaAssentos(props){
 const StyledPaginaAssentos = styled.main`
 width: 100%;
 display: flex;
+flex-direction: column;
 justify-content: center;
 align-items: center;
 background-color: #E5E5E5;
@@ -290,4 +301,53 @@ background-color: #E8833A;
         line-height: 21px;
         color: #FFFFFF;
     }
+`
+const StyledRodape = styled.div`
+width: 375px;
+height: 117px;
+display: flex;
+justify-content: start;
+align-items: center;
+background-color: #DFE6ED;
+border: 1px solid #9EADBA;
+    span{
+        width: 169px;
+        height: 40px;
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 30px;
+        color: #293845;
+        white-space: nowrap;
+    }
+    p{
+        width: 169px;
+        height: 40px;
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 30px;
+        color: #293845; 
+    }
+
+    div{
+        width: 64px;
+        height: 89px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2px;
+        background-color: white;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+        img{
+            width: 48px;
+            height: 72px;
+        }
+`
+const StyledRodapeDiv = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 `
