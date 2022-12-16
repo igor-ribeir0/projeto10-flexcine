@@ -122,12 +122,16 @@ export default function PaginaAssentos(props){
             </StyledContainerConteudoAssentos>
 
             <StyledRodape>
-                <div>
+                <StyledDivImagem>
                     <img src={guardarRodapeImagem} />
-                </div>
+                </StyledDivImagem>
                 <StyledRodapeDiv >
-                    <p>{nomeFilme}</p>
-                    <span>{dataFilme}- {tempoFilme}</span>
+                    <div>
+                        <p>{nomeFilme}</p>
+                    </div>
+                    <div>
+                        <span>{dataFilme}- {tempoFilme}</span>
+                    </div>
                 </StyledRodapeDiv>
             </StyledRodape>
 
@@ -314,40 +318,41 @@ border: 1px solid #9EADBA;
         width: 169px;
         height: 40px;
         font-weight: 400;
-        font-size: 26px;
+        font-size: 21px;
         line-height: 30px;
         color: #293845;
         white-space: nowrap;
     }
     p{
-        width: 169px;
+        width: 20px;
         height: 40px;
         font-weight: 400;
-        font-size: 26px;
-        line-height: 30px;
-        color: #293845; 
+        font-size: 21px;
+        line-height: 10px;
+        color: #293845;
+        white-space: nowrap;
+        margin-left: -120px;
     }
-
-    div{
-        width: 64px;
-        height: 89px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 2px;
-        background-color: white;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        margin-left: 30px;
-        margin-right: 30px;
-    }
-        img{
-            width: 48px;
-            height: 72px;
-        }
 `
 const StyledRodapeDiv = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+`
+const StyledDivImagem = styled.div`
+width: 64px;
+height: 89px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 2px;
+background-color: white;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+margin-left: 1px;
+margin-right: 30px;
+    img{
+        width: 48px;
+        height: 72px;
+    }
 `
